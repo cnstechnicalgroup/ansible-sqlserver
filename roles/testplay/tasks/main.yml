@@ -1,0 +1,3 @@
+---
+- name: "Test credstash lookup plugin -- get the secret password"
+  debug: msg="Credstash lookup! {{ lookup('credstash', 'SA') }}"

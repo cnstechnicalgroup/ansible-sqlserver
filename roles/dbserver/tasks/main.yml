@@ -1,0 +1,63 @@
+---
+- name: Ensure MySQL installed
+  yum: name=mariadb-server state=present
+
+- name: Start MySQL
+  service: name=mariadb state=started 
+
+- name: Add epel repository
+  yum_repository:
+    name: epel
+    description: EPEL YUM repo
+    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
+  notify: yum-clean-metadata
+
+- name: Add mssql repository
+  yum_repository:
+    name: packages-microsoft-com-mssql-server
+    description: packages-microsoft-com-mssql-server
+    baseurl: https://packages.microsoft.com/rhel/7/mssql-server/
+    enabled: yes
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    gpgcheck: yes
+  notify: yum-clean-metadata
+
+- name: Ensure mssql installed
+  yum: name=mssql-server state=present
+
+- name: Enable firewalld
+  service: name=firewalld state=started enabled=yes
+
+- name: Enable enable 1433 on firewall 
+  firewalld:
+    port: 1433/tcp
+    permanent: true
+    state: enabled
+    zone: public
+  notify: restart-firewalld
+
+- name: Install expect
+  yum: name=expect
+
+- name: Initial setup of sql server
+  shell: expect -c 'spawn /opt/mssql/lib/mssql-conf/mssql-conf.py setup; expect license; send "Yes\n"; expect password; send "{{sa_password}}\n"; expect password; send "{{sa_password}}\n"; expect completed; interact'
+  ignore_errors: true
+  register: res
+
+- name: Initial setup of sql server (license already accepted)
+  shell: expect -c 'spawn /opt/mssql/lib/mssql-conf/mssql-conf.py setup; expect password; send "{{sa_password}}\n"; expect password; send "{{sa_password}}\n expect completed completed"; interact'
+  when: res.stdout.find('password policy requirements') != -1
+  
+- name: Stop sql server if it was already running and initialized
+  service: name=mssql-server state=stopped
+  when: res.stdout.find('SQL Server is running') != -1
+    
+- name: Set sql server if it was already running
+  shell: expect -c 'spawn /opt/mssql/lib/mssql-conf/mssql-conf.py setup; expect password; send "{{sa_password}}\n"; expect password; send "{{sa_password}}\n"; send "start\n"; expect completed; send "end\n";  interact'
+  when: res.stdout.find('SQL Server is running') != -1
+  
+- name: Start sql server
+  service: name=mssql-server state=started enabled=yes
+
+
+
