@@ -9,6 +9,9 @@
     gpgcheck: yes
   notify: yum-clean-metadata
 
+- name: Install expect
+  yum: name=expect
+
 - name: Initial setup of sql server
   shell: expect -c 'spawn /usr/bin/yum -y install mssql-tools; expect "Do you accept the license terms? (Enter YES or NO)"; send "YES\n"; expect completed; interact'
   ignore_errors: true
