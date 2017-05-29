@@ -1,0 +1,6 @@
+---
+- hosts: dbclients
+  sudo: yes
+  roles:
+  - dbclient
+  gather_facts: no

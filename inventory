@@ -8,6 +8,9 @@ acs ansible_ssh_host=127.0.0.1 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
 db1
 db2
 
+[dbclients]
+acs
+
 [datacenter:children]
 webservers
 dbservers
