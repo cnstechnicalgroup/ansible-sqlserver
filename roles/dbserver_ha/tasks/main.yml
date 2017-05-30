@@ -1,0 +1,14 @@
+---
+- name: Ensure mssql HA installed
+  yum: name=mssql-server-ha state=present
+
+- name: Stop sql server if it was already running and initialized
+  service: name=mssql-server state=stopped
+  register: res
+
+- name: enable HA on sql server
+  shell: /opt/mssql/bin/mssql-conf set hadr.hadrenabled  1
+
+- name: Start sql server
+  service: name=mssql-server state=started enabled=yes
+

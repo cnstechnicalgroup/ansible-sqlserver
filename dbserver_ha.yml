@@ -1,6 +1,6 @@
 ---
-- hosts: dbclients
+- hosts: dbservers
   roles:
-  - dbclient
+  - dbserver_ha
   gather_facts: no
   sudo: yes

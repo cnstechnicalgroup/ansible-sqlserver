@@ -16,3 +16,11 @@
   shell: expect -c 'spawn /usr/bin/yum -y install mssql-tools; expect "Do you accept the license terms? (Enter YES or NO)"; send "YES\n"; expect completed; interact'
   ignore_errors: true
   register: res
+
+
+- name: add path to sqlcmd
+  lineinfile:
+    path: /home/vagrant/.bash_profile
+    line: PATH=$PATH:/opt/mssql-tools/bin
+    insertbefore: '^export\ PATH'
+    state: present
