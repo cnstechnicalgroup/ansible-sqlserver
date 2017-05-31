@@ -1,4 +1,16 @@
 ---
+- name: add path to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: 192.168.33.10 db1
+    state: present
+
+- name: add path to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: 192.168.33.20 db2
+    state: present
+
 - name: Ensure mssql HA installed
   yum: name=mssql-server-ha state=present
 
@@ -8,6 +20,14 @@
 
 - name: enable HA on sql server
   shell: /opt/mssql/bin/mssql-conf set hadr.hadrenabled  1
+
+- name: Enable enable 1433 on firewall
+  firewalld:
+    port: 5022/tcp
+    permanent: true
+    state: enabled
+    zone: public
+  notify: restart-firewalld
 
 - name: Start sql server
   service: name=mssql-server state=started enabled=yes
