@@ -1,0 +1,9 @@
+gpg2 --gen-key
+gpg --list-keys
+
+
+rm -rf ~/.password-store
+pass init "49743E69"
+pass insert MSSQL/db1/SA
+pass insert MSSQL/db2/SA
+ansible-playbook testplay.yml 
