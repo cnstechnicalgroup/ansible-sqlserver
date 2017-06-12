@@ -1,0 +1,18 @@
+IF NOT EXISTS (SELECT * FROM sys.symmetric_keys WHERE symmetric_key_id = 101)
+BEGIN
+  PRINT 'Creating Database Master Key'
+  CREATE MASTER KEY ENCRYPTION BY PASSWORD = '{{ sa_password }}';
+END
+
+
+IF NOT EXISTS(SELECT * FROM sys.certificates WHERE  name = 'dbm_certificate')
+  BEGIN
+      CREATE CERTIFICATE dbm_certificate WITH SUBJECT = 'dbm_certificate'
+  END
+
+BACKUP CERTIFICATE dbm_certificate
+TO FILE = '/var/opt/mssql/data/dbm_certificate.cer'
+WITH PRIVATE KEY (
+        FILE = '/var/opt/mssql/data/dbm_certificate.pvk',
+        ENCRYPTION BY PASSWORD = '{{ sa_password }}'
+    );

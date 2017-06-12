@@ -42,6 +42,9 @@
 - name: Install expect
   yum: name=expect
 
+- name: Install rsync 
+  yum: name=rsync
+
 - name: Check if sql server is running
   command: systemctl status mssql-server 
   ignore_errors: True

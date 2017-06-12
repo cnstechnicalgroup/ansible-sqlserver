@@ -1,15 +1,62 @@
 ---
 
 - set_fact:
-    sqlscript: "{{ lookup('template', '{{ playbook_dir }}/files/sql/1_create_dbm_user.sql.j2') }}"
+    sqlscript1: "{{ lookup('template', '{{ playbook_dir }}/files/sql/1_create_dbm_user.sql.j2') }}"
+    sqlscript2: "{{ lookup('template', '{{ playbook_dir }}/files/sql/2_PRIMARY_ONLY_create_master_key_on_primary.sql.j2') }}"
 
 - name: create login and user if they don't exist
-  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript | regex_replace('\n|\t', ' ') }}\" "
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript1 | regex_replace('\n|\t', ' ') }}\" "
   delegate_to: localhost
+  sudo: no
   register: result_login
 
-- name: check if user exists
-  command: echo "user exists"
-  when: "'user exists' in result_login.stdout"
-
 - debug: msg="{{ result_login.stdout }}"
+
+- file: 
+   path: /var/opt/mssql/data/dbm_certificate.cer 
+   state: absent 
+
+- file: 
+   path: /var/opt/mssql/data/dbm_certificate.pvk 
+   state: absent 
+
+- name: create certificate and back it up
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript2 | regex_replace('\n|\t', ' ') }}\" "
+  delegate_to: localhost
+  register: result_login
+  when: "'db1' in inventory_hostname"
+
+- name: fetch certs from primary
+  sudo: yes
+  fetch:
+   src: /var/opt/mssql/data/dbm_certificate.cer
+   dest: /tmp/db1_dbm_certificate.cer
+   flat: yes
+  when: "'db1' in inventory_hostname"
+
+- name: copy certs to replicas
+  sudo: yes
+  copy:
+   src: /tmp/db1_dbm_certificate.cer
+   dest: /var/opt/mssql/data/dbm_certificate.cer
+   owner: mssql
+   group: mssql
+  when: "'db1' not in inventory_hostname"
+
+- name: fetch private key from primary
+  sudo: yes
+  fetch:
+   src: /var/opt/mssql/data/dbm_certificate.pvk
+   dest: /tmp/db1_dbm_certificate.pvk
+   flat: yes
+  when: "'db1' in inventory_hostname"
+
+- name: copy private key to replicas
+  sudo: yes
+  copy:
+   src: /tmp/db1_dbm_certificate.pvk
+   dest: /var/opt/mssql/data/dbm_certificate.pvk
+   owner: mssql
+   group: mssql
+  when: "'db1' not in inventory_hostname"
+
