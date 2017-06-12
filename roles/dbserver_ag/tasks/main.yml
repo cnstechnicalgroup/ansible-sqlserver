@@ -3,6 +3,7 @@
 - set_fact:
     sqlscript1: "{{ lookup('template', '{{ playbook_dir }}/files/sql/1_create_dbm_user.sql.j2') }}"
     sqlscript2: "{{ lookup('template', '{{ playbook_dir }}/files/sql/2_PRIMARY_ONLY_create_master_key_on_primary.sql.j2') }}"
+    sqlscript3: "{{ lookup('template', '{{ playbook_dir }}/files/sql/2_REPLICA_ONLY_restore_master_key_on_replica.sql.j2') }}"
 
 - name: create login and user if they don't exist
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript1 | regex_replace('\n|\t', ' ') }}\" "
@@ -20,7 +21,7 @@
    path: /var/opt/mssql/data/dbm_certificate.pvk 
    state: absent 
 
-- name: create certificate and back it up
+- name: create certificate, pvk and back them up
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript2 | regex_replace('\n|\t', ' ') }}\" "
   delegate_to: localhost
   register: result_login
@@ -58,5 +59,11 @@
    dest: /var/opt/mssql/data/dbm_certificate.pvk
    owner: mssql
    group: mssql
+  when: "'db1' not in inventory_hostname"
+
+- name: restore certificates and pvk
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript3 | regex_replace('\n|\t', ' ') }}\" "
+  delegate_to: localhost
+  register: result_login
   when: "'db1' not in inventory_hostname"
 
