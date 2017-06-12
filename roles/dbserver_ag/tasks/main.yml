@@ -1,0 +1,11 @@
+---
+- name: create login and user if they don't exist
+  command: sqlcmd -S {{inventory_hostname}} -U SA -P {{sa_password}} -i {{ playbook_dir }}/files/sql/1_create_dbm_user.sql
+  delegate_to: localhost
+  register: result_login
+
+- name: check if user exists
+  command: echo "user exists"
+  when: "'user exists' in result_login.stdout"
+
+- debug: msg="{{ result_login.stdout }}"
