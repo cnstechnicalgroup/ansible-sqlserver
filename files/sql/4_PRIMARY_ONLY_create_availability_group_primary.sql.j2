@@ -1,0 +1,25 @@
+if not exists (select * From sys.availability_groups where name  = '{{ availability_group }}')
+BEGIN
+
+	CREATE AVAILABILITY GROUP [{{ availability_group }}]
+		WITH (CLUSTER_TYPE = NONE)
+		FOR REPLICA ON
+			N'{{ primary_replica }}' WITH (
+				ENDPOINT_URL = N'tcp://{{ primary_replica }}:5022',
+				AVAILABILITY_MODE = ASYNCHRONOUS_COMMIT,
+				FAILOVER_MODE = MANUAL,
+				SEEDING_MODE = AUTOMATIC,
+						SECONDARY_ROLE (ALLOW_CONNECTIONS = ALL)
+				),
+			N'{{ mirror_replica }}' WITH ( 
+				ENDPOINT_URL = N'tcp://{{ mirror_replica }}:5022', 
+				AVAILABILITY_MODE = ASYNCHRONOUS_COMMIT,
+				FAILOVER_MODE = MANUAL,
+				SEEDING_MODE = AUTOMATIC,
+				SECONDARY_ROLE (ALLOW_CONNECTIONS = ALL)
+				);
+
+END
+
+ALTER AVAILABILITY GROUP [ag1] GRANT CREATE ANY DATABASE;
+
