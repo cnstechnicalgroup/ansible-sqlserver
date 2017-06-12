@@ -1,6 +1,10 @@
 ---
+
+- set_fact:
+    sqlscript: "{{ lookup('template', '{{ playbook_dir }}/files/sql/1_create_dbm_user.sql.j2') }}"
+
 - name: create login and user if they don't exist
-  command: sqlcmd -S {{inventory_hostname}} -U SA -P {{sa_password}} -i {{ playbook_dir }}/files/sql/1_create_dbm_user.sql
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript | regex_replace('\n|\t', ' ') }}\" "
   delegate_to: localhost
   register: result_login
 
