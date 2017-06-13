@@ -8,6 +8,13 @@
 Vagrant.configure("2") do |config|
 
 
+  config.vm.provision "shell" do |s|
+    ssh_pub_key = File.readlines("#{Dir.home}/vagrant/id_rsa.pub").first.strip
+    s.inline = <<-SHELL
+      echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+    SHELL
+  end
+
  config.vm.provider "virtualbox" do |v|
      v.memory = 4096
      v.cpus = 4 
@@ -37,5 +44,6 @@ Vagrant.configure("2") do |config|
 	     v.cpus = 2
 	 end
  end
+
 
 end
