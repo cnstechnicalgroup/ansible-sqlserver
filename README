@@ -1,6 +1,7 @@
 Install Vagrant + VirtualBox
 Notice that the VagrantFile passes the id_rsa.pub to all hosts. This avoids having to add the ssh key to authorized_keys before running ansible.
 
+Follow PasswordStore instructions before running ansible
 
 Install MSSQL server + sql server Agent + setup firewall
 ansible-playbook dbserver.yml
