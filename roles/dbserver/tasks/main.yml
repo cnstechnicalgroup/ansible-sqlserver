@@ -50,26 +50,15 @@
   ignore_errors: True
   register: sqlserver_service
 
-- name: Initial setup of sql server
-  shell: expect -c 'spawn /opt/mssql/lib/mssql-conf/mssql-conf.py setup; expect license; send "Yes\n"; expect password; send "{{sa_password}}\n"; expect password; send "{{sa_password}}\n"; expect completed; interact'
-  ignore_errors: true
-  when: sqlserver_service.stdout.find('running') == -1
-
-- name: Initial setup of sql server (license already accepted)
-  shell: expect -c 'spawn /opt/mssql/lib/mssql-conf/mssql-conf.py setup; expect password; send "{{sa_password}}\n"; expect password; send "{{sa_password}}\n expect completed completed"; interact'
-  when: sqlserver_service.stdout.find('running') == -1
-  
 - name: Stop sql server if it was already running and initialized
   service: name=mssql-server state=stopped
   when: sqlserver_service.stdout.find('running') == -1
     
-- name: Set sql server if it was already running
-  shell: expect -c 'spawn /opt/mssql/lib/mssql-conf/mssql-conf.py setup; expect password; send "{{sa_password}}\n"; expect password; send "{{sa_password}}\n"; send "start\n"; expect completed; send "end\n";  interact'
+- name: Initial setup of sql server
+  command: /opt/mssql/lib/mssql-conf/mssql-conf.py setup accept-eula
   when: sqlserver_service.stdout.find('running') == -1
  
 - name: Start sql server
   service: name=mssql-server state=started enabled=yes
   when: sqlserver_service.stdout.find('running') == -1
-
-
 

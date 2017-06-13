@@ -4,4 +4,6 @@
   roles: 
   - testplay
   gather_facts: no
+  environment:
+   SA_PASSWORD: "{{sa_password}}"
 
