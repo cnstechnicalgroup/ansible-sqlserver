@@ -1,0 +1,5 @@
+---
+use_hosts_file: no
+primary_host_ip: 192.168.33.10
+secondary_host_ip: 192.168.33.20
+

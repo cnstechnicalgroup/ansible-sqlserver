@@ -2,14 +2,16 @@
 - name: add path to /etc/hosts
   lineinfile:
     path: /etc/hosts
-    line: 192.168.33.10 db1
+    line: "{{ primary_host_ip }} {{ inventory_hostname }}"
     state: present
+  when: use_hosts_file==1
 
 - name: add path to /etc/hosts
   lineinfile:
     path: /etc/hosts
-    line: 192.168.33.20 db2
+    line: "{{ secondary_host_ip }} {{ inventory_hostname }}"
     state: present
+  when: use_hosts_file==1
 
 - name: Ensure mssql HA installed
   yum: name=mssql-server-ha state=present

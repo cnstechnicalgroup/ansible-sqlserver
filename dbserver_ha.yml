@@ -2,5 +2,5 @@
 - hosts: dbservers
   roles:
   - dbserver_ha
-  gather_facts: no
+  gather_facts: yes
   sudo: yes
