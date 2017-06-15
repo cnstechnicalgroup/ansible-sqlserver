@@ -4,14 +4,14 @@
     path: /etc/hosts
     line: "{{ primary_host_ip }} {{ inventory_hostname }}"
     state: present
-  when: use_hosts_file==1
+  when: use_hosts_file
 
 - name: add path to /etc/hosts
   lineinfile:
     path: /etc/hosts
     line: "{{ secondary_host_ip }} {{ inventory_hostname }}"
     state: present
-  when: use_hosts_file==1
+  when: use_hosts_file
 
 - name: Ensure mssql HA installed
   yum: name=mssql-server-ha state=present
