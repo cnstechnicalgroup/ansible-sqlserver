@@ -1,2 +1,10 @@
 ---
-- debug: var=use_hosts_file
+- debug: var=availability_group
+- debug: var=primary_replica
+- debug: var=mirror_replica
+
+- name: test when
+  debug: var=primary_replica
+  delegate_to: localhost
+  when: primary_replica == inventory_hostname
+

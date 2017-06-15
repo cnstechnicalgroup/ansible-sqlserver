@@ -2,14 +2,14 @@
 - name: add path to /etc/hosts
   lineinfile:
     path: /etc/hosts
-    line: "{{ primary_host_ip }} {{ inventory_hostname }}"
+    line: "{{ primary_host_ip }} {{ primary_host_name }}"
     state: present
   when: use_hosts_file
 
 - name: add path to /etc/hosts
   lineinfile:
     path: /etc/hosts
-    line: "{{ secondary_host_ip }} {{ inventory_hostname }}"
+    line: "{{ secondary_host_ip }} {{ secondary_host_name }}"
     state: present
   when: use_hosts_file
 
