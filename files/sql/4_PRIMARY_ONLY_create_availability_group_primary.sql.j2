@@ -4,15 +4,15 @@ BEGIN
 	CREATE AVAILABILITY GROUP [{{ availability_group }}]
 		WITH (CLUSTER_TYPE = NONE)
 		FOR REPLICA ON
-			N'{{ primary_replica }}' WITH (
-				ENDPOINT_URL = N'tcp://{{ primary_replica }}:5022',
+			N'{{ primary_host }}' WITH (
+				ENDPOINT_URL = N'tcp://{{ primary_host }}:5022',
 				AVAILABILITY_MODE = ASYNCHRONOUS_COMMIT,
 				FAILOVER_MODE = MANUAL,
 				SEEDING_MODE = AUTOMATIC,
 						SECONDARY_ROLE (ALLOW_CONNECTIONS = ALL)
 				),
-			N'{{ mirror_replica }}' WITH ( 
-				ENDPOINT_URL = N'tcp://{{ mirror_replica }}:5022', 
+			N'{{ secondary_host }}' WITH ( 
+				ENDPOINT_URL = N'tcp://{{ secondary_host }}:5022', 
 				AVAILABILITY_MODE = ASYNCHRONOUS_COMMIT,
 				FAILOVER_MODE = MANUAL,
 				SEEDING_MODE = AUTOMATIC,

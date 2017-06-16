@@ -2,5 +2,5 @@
 # sa_password: "{{ lookup('credstash', 'SA') }}" AWS credstash
 sa_password: "{{ lookup('pipe', 'pass MSSQL/{{inventory_hostname}}/SA') }}"
 availability_group: "ag1"
-primary_replica: "db1"
-mirror_replica: "db2"
+primary_host: "db1"
+secondary_host: "db2"
