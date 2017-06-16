@@ -1,6 +1,29 @@
+# Ansible Install of SQL Server for Linux Always-On with READ SCALING ONLY
+
 
 The purpose of the ansible sql server project is to install the latest version of SQL Server for Linux on a CentOS7 or similar OS. 
 We used MS's tutorial on setting up a SQL Server AlwaysOn for read-scale only.
+
+* INSTALL SQL SERVER ALWAYS ON FOR LINUX WITH READ SCALE ONLY
+ 
+- Install sqlcmd
+``` ansible-playbook dbclient.yml ```
+
+- Install MSSQL server + sql server Agent + setup firewall
+```ansible-playbook dbserver.yml```
+
+- Install MSSQL Server HA components + setup firewall for 5022
+```ansible-playbook dbserver_ha.yml```
+
+- Create AlwaysOn Availability Group NoCluster ReadOnly mirror between two servers
+```ansible-playbook dbserver_ag.yml```
+
+The result of these four plays is a functional mirror between a principal and secondary server using SQL Servers AlwaysOn Technology. 
+You can install dbclient and dbserver if you just want to have the latest version of Microsoft's Linux version of SQL Server. 
+Some assumptions are made, such as using key based ssh authentification between hosts. We also assume that you will be using the 
+ansible server for sqlcmd commands. 
+
+* ANNEX
 
 Vagrant + virtualbox was used as the environment for the SQL Server ansible project. 
 You don't have to use vagrant, and this project is about installing SQL Server for Linux and not vagrant nor virtualbox.
@@ -70,15 +93,5 @@ db1 | SUCCESS => {
 }
 
 
-INSTALL SQL SERVER ALWAYS ON FOR LINUX WITH READ SCALE ONLY
-
-Install MSSQL server + sql server Agent + setup firewall
-ansible-playbook dbserver.yml
-
-Install MSSQL Server HA components + setup firewall for 5022
-ansible-playbook dbserver_ha.yml
-
-Create AlwaysOn Availability Group NoCluster ReadOnly mirror between two servers
-ansible-playbook dbserver_ag.yml
 
 
