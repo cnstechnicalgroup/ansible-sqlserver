@@ -1,11 +1,12 @@
+---
 image: geerlingguy/docker-centos7-ansible:latest
 
 before_script:
   - scripts/setup.sh
 test:
   script:
-		- ansible-galaxy install -r requirements.yml
-		- ls -l roles/
+    - ansible-galaxy install -r requirements.yml
+    - ls -l roles/
     - ansible-playbook -i localhost dbclient.yml
     - ls -l /opt/mssql-tools/bin/
     - exit 0
