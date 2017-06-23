@@ -8,7 +8,8 @@ test:
     - ansible-galaxy install -r requirements.yml
     - ls -l roles/
     - ansible-playbook -i scripts/hosts dbclient.yml
-    - ls -l /opt/mssql-tools/bin/
+		- export PATH=$PATH:/opt/mssql-tools/bin
+    - which /usr/bin/sqlcmd
     - exit 0
   only:
     - dev
