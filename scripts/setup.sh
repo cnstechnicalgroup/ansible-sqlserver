@@ -1,3 +1,5 @@
+#!/bin/bash
+
 yum install -y yum-utils
 yum-config-manager --add-repo=https://dl.fedoraproject.org/pub/epel/7/x86_64/
 yum install -y wget
