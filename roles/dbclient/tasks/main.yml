@@ -1,26 +1,43 @@
 ---
 - name: Add mssql tools repository
   yum_repository:
-    name: packages-microsoft-com-prod 
+    name: packages-microsoft-com-prod
     description: packages-microsoft-com-prod
     baseurl: https://packages.microsoft.com/rhel/7/prod/
     enabled: yes
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     gpgcheck: yes
   notify: yum-clean-metadata
+  become: true
+  become_user: root
 
-- name: Install expect
-  yum: name=expect
+- name: Install mssql-tools
+  yum: name=mssql-tools state=present
+  become: true
+  become_user: root
 
-- name: Initial setup of sql server
-  shell: expect -c 'spawn /usr/bin/yum -y install mssql-tools; expect "Do you accept the license terms? (Enter YES or NO)"; send "YES\n"; expect completed; interact'
-  ignore_errors: true
-  register: res
-
+- name: Install msodbcsql
+  yum: name=msodbcsql state=present
+  become: true
+  become_user: root
 
 - name: add path to sqlcmd
   lineinfile:
-    path: /home/vagrant/.bash_profile
+    path: "{{ target_home }}/.bash_profile"
     line: PATH=$PATH:/opt/mssql-tools/bin
     insertbefore: '^export\ PATH'
+    create: true
     state: present
+
+
+- name: test sqlcmd was installed and can be found in path
+  shell: which sqlcmd
+  register: cmd_result
+  when: testing is defined
+  delegate_to: localhost
+
+- assert:
+    that:
+     - "'/opt/mssql-tools/bin/sqlcmd' in cmd_result.stdout"
+  when: testing is defined
+

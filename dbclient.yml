@@ -1,6 +1,10 @@
 ---
-- hosts: dbclients
-  roles:
+- name: dbclient
+  hosts: dbclients
+  sudo: no
+  roles: 
   - dbclient
   gather_facts: no
-  sudo: yes
+  environment:
+    target_home: "{{target_home}}"
+    ACCEPT_EULA: "Y"
