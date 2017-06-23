@@ -9,5 +9,3 @@ yum install -y python-devel libffi-devel openssl-devel gcc python-pip redhat-rpm
 pip install --upgrade pip;
 pip install paramiko;
 pip install ansible;
-mkdir /home/vagrant;
-touch /home/vagrant/.bash_profile;

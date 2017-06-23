@@ -9,7 +9,6 @@ test:
     - ls -l roles/
     - ansible-playbook -i scripts/hosts dbclient.yml
     - export PATH=$PATH:/opt/mssql-tools/bin
-    - which /usr/bin/sqlcmd
-    - exit 0
+    - which /usr/bin/sqlcmd || true
   only:
     - dev
