@@ -1,0 +1,4 @@
+- src: cnstechnicalgroup.sqlserver-client
+- src: cnstechnicalgroup.sqlserver-server
+- src: cnstechnicalgroup.sqlserver-ha-config
+- src: cnstechnicalgroup.sqlserver-ag-config
