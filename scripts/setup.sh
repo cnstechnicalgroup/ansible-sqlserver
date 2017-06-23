@@ -10,3 +10,4 @@ pip install --upgrade pip;
 pip install paramiko;
 pip install ansible;
 mkdir /home/vagrant;
+touch /home/vagrant/.bash_profile;
