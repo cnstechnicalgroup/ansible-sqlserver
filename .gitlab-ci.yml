@@ -10,5 +10,6 @@ test:
     - ansible-playbook -i scripts/hosts dbclient.yml
     - export PATH=$PATH:/opt/mssql-tools/bin
     - which /usr/bin/sqlcmd || true
+    - ls -l /opt/mssql-tools/ || true
   only:
     - dev
