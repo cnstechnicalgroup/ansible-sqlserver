@@ -7,9 +7,7 @@ test:
   script:
     - ansible-galaxy install -r requirements.yml
     - ls -l roles/
-    - ansible-playbook -i scripts/hosts dbclient.yml -vvvv
+		- ansible-playbook -i scripts/hosts dbclient.yml -e "testing=True"
     - export PATH=$PATH:/opt/mssql-tools/bin
-    - which /usr/bin/sqlcmd || true
-    - ls -l /opt/mssql-tools/ || true
   only:
     - dev
