@@ -1,6 +1,8 @@
 ---
 - hosts: dbclients
   roles:
-  - dbclient
+    - cnstechnicalgroup.sqlserver-client
   gather_facts: no
   sudo: yes
+  environment:
+    ACCEPT_EULA: "Y"
