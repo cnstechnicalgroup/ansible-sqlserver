@@ -1,3 +1,0 @@
----
-# sa_password: "{{ lookup('credstash', 'SA') }}" AWS credstash
-sa_password: "{{ lookup('pipe', 'pass MSSQL/{{inventory_hostname}}/SA') }}"
