@@ -5,4 +5,6 @@
   gather_facts: no
   sudo: yes
   environment:
+  environment:
+    target_home: "{{target_home}}"
     ACCEPT_EULA: "Y"
