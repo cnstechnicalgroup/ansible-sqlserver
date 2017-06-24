@@ -9,4 +9,5 @@ test:
     - export PATH=$PATH:/opt/mssql-tools/bin
     - ansible-playbook -i scripts/hosts dbclient.yml -e "testing=True"
   only:
+    - master
     - dev
