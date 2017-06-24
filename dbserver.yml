@@ -5,6 +5,6 @@
   - cnstechnicalgroup.sqlserver-server
   gather_facts: no
   environment:
-   SA_PASSWORD: "{{sa_password}}"
+   SA_PASSWORD: "1AMa_secret_Passw0rd2017"
 
 
