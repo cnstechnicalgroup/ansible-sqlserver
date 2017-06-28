@@ -1,8 +1,8 @@
 ---
 - hosts: dbclients
   roles:
-    - cnstechnicalgroup.sqlserver-client
-  gather_facts: no
+    - dbclient
+  gather_facts: yes
   sudo: yes
   environment:
   environment:

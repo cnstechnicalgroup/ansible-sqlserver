@@ -1,5 +1,5 @@
 ---
-- name: Add mssql tools repository
+- name: Add mssql tools repository Centos
   yum_repository:
     name: packages-microsoft-com-prod
     description: packages-microsoft-com-prod
@@ -10,16 +10,48 @@
   notify: yum-clean-metadata
   become: true
   become_user: root
+  when:  ansible_os_family == "CentOS"
+
+- name: Add mssql tools repository Ubuntu
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/ubuntu/16.04/prod xenial main
+    state: present
+    filename: 'msprod.list'
+  when:  ansible_os_family == "Debian"
+
+- name: add apt_key for mssql-tools Ubuntu
+  apt_key:
+    url: "https://packages.microsoft.com/keys/microsoft.asc"
+    state: present
+  when:  ansible_os_family == "Debian"
 
 - name: Install mssql-tools
   yum: name=mssql-tools state=present
   become: true
   become_user: root
+  when:  ansible_os_family == "CentOS"
 
 - name: Install msodbcsql
   yum: name=msodbcsql state=present
   become: true
   become_user: root
+  when:  ansible_os_family == "CentOS"
+
+- name: Install the package "mssql-tools"
+  apt:
+    name: mssql-tools
+    allow_unauthenticated: true
+    update_cache: yes
+    state: present
+  when:  ansible_os_family == "Debian"
+
+- name: Install the package "mssql-tools"
+  apt:
+    name: unixodbc-dev 
+    allow_unauthenticated: true
+    update_cache: yes
+    state: present
+  when:  ansible_os_family == "Debian"
 
 - name: add path to sqlcmd
   lineinfile:
