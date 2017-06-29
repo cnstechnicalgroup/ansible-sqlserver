@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get install -y wget python-dev libffi-dev gcc python-pip;
-pip install --upgrade pip;
-pip install paramiko;
-pip install ansible;
+sudo apt-get install -y wget python-dev libffi-dev gcc python-pip;
+sudo pip install --upgrade pip;
+sudo pip install paramiko;
+sudo pip install ansible;
