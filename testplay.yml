@@ -1,5 +1,5 @@
 ---
-- hosts: dbservers
+- hosts: replicas
   sudo: yes
   roles: 
   - testplay

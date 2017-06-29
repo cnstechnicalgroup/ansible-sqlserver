@@ -1,10 +1,19 @@
 ---
-- debug: var=availability_group
-- debug: var=primary_replica
-- debug: var=mirror_replica
 
-- name: test when
-  debug: var=primary_replica
+- set_fact:
+    sqlscript1: "{{ lookup('template', '{{ playbook_dir }}/files/sql/1_create_dbm_user.sql.j2') }}"
+    sqlscript2: "{{ lookup('template', '{{ playbook_dir }}/files/sql/2_REPLICA_ONLY_restore_master_key_on_replica.sql.j2') }}"
+    sqlscript3: "{{ lookup('template', '{{ playbook_dir }}/files/sql/3_create_mirroring_endpoint.sql.j2') }}"
+    sqlscript4: "{{ lookup('template', '{{ playbook_dir }}/files/sql/5_REPLICA_ONLY_join_replica_to_availability_group.sql.j2') }}"
+
+- name: restore certificates and pvk
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript2 | regex_replace('\n|\t', ' ') }}\" "
   delegate_to: localhost
-  when: primary_replica == inventory_hostname
+  sudo: no
+  when: primary_host != inventory_hostname
+
+- name: create mirroring endpoints
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript3 | regex_replace('\n|\t', ' ') }}\" "
+  sudo: no
+  delegate_to: localhost
 

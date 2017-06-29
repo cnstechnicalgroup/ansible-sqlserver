@@ -5,7 +5,7 @@
     description: EPEL YUM repo
     baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
   notify: yum-clean-metadata
-  when:  ansible_os_family == "CentOS"
+  when: ansible_distribution == "CentOS"
 
 - name: Add mssql repository CentOS
   yum_repository:
@@ -16,28 +16,28 @@
     gpgkey: https://packages.microsoft.com/keys/microsoft.asc
     gpgcheck: yes
   notify: yum-clean-metadata
-  when:  ansible_os_family == "CentOS"
+  when: ansible_distribution == "CentOS"
 
 - name: Add mssql repository Ubuntu
   apt_repository:
     repo: deb [arch=amd64] https://packages.microsoft.com/ubuntu/16.04/mssql-server xenial main
     state: present
     filename: 'msprod.list'
-  when:  ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian"
 
-- name: add apt_key for mssql-tools Ubuntu
+- name: add apt_key for mssql-server Ubuntu
   apt_key:
     url: "https://packages.microsoft.com/keys/microsoft.asc"
     state: present
-  when:  ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian"
 
 - name: Ensure mssql installed
   yum: name=mssql-server state=present
-  when:  ansible_os_family == "CentOS"
+  when: ansible_distribution == "CentOS"
 
 - name: Ensure mssql agent installed
   yum: name=mssql-server-agent state=present
-  when:  ansible_os_family == "CentOS"
+  when: ansible_distribution == "CentOS"
 
 - name: Install the package "mssql-server"
   apt:
@@ -53,11 +53,11 @@
     allow_unauthenticated: true
     update_cache: yes
     state: present
-  when:  ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian"
 
 - name: Enable firewalld
   service: name=firewalld state=started enabled=yes
-  when:  ansible_os_family == "CentOS"
+  when: ansible_distribution == "CentOS"
 
 - name: Enable enable 1433 on firewall 
   firewalld:
@@ -66,7 +66,7 @@
     state: enabled
     zone: public
   notify: restart-firewalld
-  when:  ansible_os_family == "CentOS"
+  when: ansible_distribution == "CentOS"
 
 - name: Check if sql server is running
   shell: "systemctl status mssql-server  2>/dev/null || true"

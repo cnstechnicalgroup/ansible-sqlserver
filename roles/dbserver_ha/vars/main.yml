@@ -1,7 +1,7 @@
 ---
 use_hosts_file: yes
 primary_host_ip: 192.168.33.10
-secondary_host_ip: 192.168.33.20
+secondary_host_ip: 192.168.33.40
 primary_host_name: db1
-secondary_host_name: db2
+secondary_host_name: db3
 

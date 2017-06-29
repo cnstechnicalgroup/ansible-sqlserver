@@ -13,9 +13,9 @@
     state: present
   when: use_hosts_file
 
-- name: Ensure mssql HA installed
+- name: Install the package "mssql-server-ha"
   yum: name=mssql-server-ha state=present
-  when:  ansible_os_family == "CentOS"
+  when: ansible_distribution == "CentOS"
 
 - name: Install the package "mssql-server-ha"
   apt:
@@ -23,7 +23,7 @@
     allow_unauthenticated: true
     update_cache: yes
     state: present
-  when:  ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian"
 
 - name: Stop sql server if it was already running and initialized
   service: name=mssql-server state=stopped
@@ -39,7 +39,7 @@
     state: enabled
     zone: public
   notify: restart-firewalld
-  when:  ansible_os_family == "CentOS"
+  when: ansible_distribution == "CentOS"
 
 - name: Start sql server
   service: name=mssql-server state=started enabled=yes
