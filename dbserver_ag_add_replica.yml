@@ -1,0 +1,9 @@
+---
+- hosts: replicas
+  sudo: yes
+  roles: 
+  - testplay
+  gather_facts: yes
+  environment:
+   SA_PASSWORD: "{{sa_password}}"
+

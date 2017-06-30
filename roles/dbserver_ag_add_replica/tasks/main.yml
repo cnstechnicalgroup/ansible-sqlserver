@@ -1,0 +1,86 @@
+---
+
+- set_fact:
+    sqlscript1: "{{ lookup('template', '1_create_dbm_user.sql.j2') }}"
+    sqlscript2: "{{ lookup('template', '2_REPLICA_ONLY_restore_master_key_on_replica.sql.j2') }}"
+    sqlscript3: "{{ lookup('template', '3_REPLICA_ONLY_create_mirroring_endpoint.sql.j2') }}"
+    sqlscript4: "{{ lookup('template', '4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2') }}"
+    sqlscript5: "{{ lookup('template', '5_REPLICA_ONLY_join_replica_to_availability_group.sql.j2') }}"
+
+- name: create login and user if they don't exist
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript1 | regex_replace('\n|\t', ' ') }}\" "
+  delegate_to: localhost
+  sudo: no
+  register: result_login
+
+- debug: msg="{{ result_login.stdout }}"
+
+- name: remove certificate if it exists
+  file: 
+   path: /var/opt/mssql/data/dbm_certificate.cer 
+   state: absent 
+  when: primary_host != inventory_hostname
+
+- name: remove private key if it exists
+  file: 
+   path: /var/opt/mssql/data/dbm_certificate.pvk 
+   state: absent 
+  when: primary_host != inventory_hostname
+
+- name: fetch certs from primary
+  sudo: yes
+  fetch:
+   src: /var/opt/mssql/data/dbm_certificate.cer
+   dest: /tmp/db1_dbm_certificate.cer
+   flat: yes
+  when: primary_host == inventory_hostname
+
+- name: copy certs to replicas
+  sudo: yes
+  copy:
+   src: /tmp/db1_dbm_certificate.cer
+   dest: /var/opt/mssql/data/dbm_certificate.cer
+   owner: mssql
+   group: mssql
+
+- name: fetch private key from primary
+  sudo: yes
+  fetch:
+   src: /var/opt/mssql/data/dbm_certificate.pvk
+   dest: /tmp/db1_dbm_certificate.pvk
+   flat: yes
+  when: primary_host == inventory_hostname
+
+- name: copy private key to replicas
+  sudo: yes
+  copy:
+   src: /tmp/db1_dbm_certificate.pvk
+   dest: /var/opt/mssql/data/dbm_certificate.pvk
+   owner: mssql
+   group: mssql
+  when: primary_host != inventory_hostname
+
+- name: restore certificates and pvk
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript2 | regex_replace('\n|\t', ' ') }}\" "
+  delegate_to: localhost
+  sudo: no
+  when: primary_host != inventory_hostname
+
+- name: create mirroring endpoints
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript3 | regex_replace('\n|\t', ' ') }}\" "
+  sudo: no
+  delegate_to: localhost
+  when: primary_host != inventory_hostname
+
+- name: Add {{ secondary_host }} to availability group {{ availability_group }}
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript4 | regex_replace('\n|\t', ' ') }}\" "
+  sudo: no
+  delegate_to: localhost
+  when: primary_host == inventory_hostname
+
+- name: Join {{ secondary_host }} to availability group {{ availability_group }}
+  command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript5 | regex_replace('\n|\t', ' ') }}\" "
+  sudo: no
+  delegate_to: localhost
+  when: primary_host != inventory_hostname
+
