@@ -1,5 +1,5 @@
 ---
-- hosts: replicas
+- hosts: dbservers
   roles:
   - dbserver_ha
   gather_facts: yes

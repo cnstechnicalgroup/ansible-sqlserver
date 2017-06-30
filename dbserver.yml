@@ -1,5 +1,5 @@
 ---
-- hosts: db3
+- hosts: dbservers
   sudo: yes
   roles: 
   - dbserver

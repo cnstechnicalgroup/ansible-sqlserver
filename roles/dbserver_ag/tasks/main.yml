@@ -1,12 +1,12 @@
 ---
 
 - set_fact:
-    sqlscript1: "{{ lookup('template', '{{ playbook_dir }}/files/sql/1_create_dbm_user.sql.j2') }}"
-    sqlscript2: "{{ lookup('template', '{{ playbook_dir }}/files/sql/2_PRIMARY_ONLY_create_master_key_on_primary.sql.j2') }}"
-    sqlscript3: "{{ lookup('template', '{{ playbook_dir }}/files/sql/2_REPLICA_ONLY_restore_master_key_on_replica.sql.j2') }}"
-    sqlscript4: "{{ lookup('template', '{{ playbook_dir }}/files/sql/3_create_mirroring_endpoint.sql.j2') }}"
-    sqlscript5: "{{ lookup('template', '{{ playbook_dir }}/files/sql/4_PRIMARY_ONLY_create_availability_group_primary.sql.j2') }}"
-    sqlscript6: "{{ lookup('template', '{{ playbook_dir }}/files/sql/5_REPLICA_ONLY_join_replica_to_availability_group.sql.j2') }}"
+    sqlscript1: "{{ lookup('template', '1_create_dbm_user.sql.j2') }}"
+    sqlscript2: "{{ lookup('template', '2_PRIMARY_ONLY_create_master_key_on_primary.sql.j2') }}"
+    sqlscript3: "{{ lookup('template', '2_REPLICA_ONLY_restore_master_key_on_replica.sql.j2') }}"
+    sqlscript4: "{{ lookup('template', '3_create_mirroring_endpoint.sql.j2') }}"
+    sqlscript5: "{{ lookup('template', '4_PRIMARY_ONLY_create_availability_group_primary.sql.j2') }}"
+    sqlscript6: "{{ lookup('template', '5_REPLICA_ONLY_join_replica_to_availability_group.sql.j2') }}"
 
 - name: create login and user if they don't exist
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript1 | regex_replace('\n|\t', ' ') }}\" "
