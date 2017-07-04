@@ -1,4 +1,4 @@
-# Install the cnstechnicalgroup.sqlserver-server role
+# Install the cnstechnicalgroup.sqlserver-client role
 
 ## 1. Create a directory cnstechnicalgroup_install and cd into it
 
@@ -24,22 +24,21 @@ roles_path = ~/cnstechnicalgroup
 
 ```yaml
 ---
-- src: cnstechnicalgroup.sqlserver-server
-  name: sqlserver-server
+- src: cnstechnicalgroup.sqlserver-client
+  name: sqlserver-client
 ```
 
 
-## 4. Install the cnstechnicalgroup.sqlserver-server role to ~/cnstechnicalgroup
+## 4. Install the cnstechnicalgroup.sqlserver-client role to ~/cnstechnicalgroup
 
 ```bash
 ansible-galaxy install -r requirements.yml
 ```
 
-
-## 5. cd into sqlserver-server
+## 5. cd into sqlserver-client
 
 ```bash
-cd ~/cnstechnicalgroup/sqlserver-server
+cd ~/cnstechnicalgroup/sqlserver-client
 ```
 
 ## 6. Create the inventory file 
@@ -61,11 +60,10 @@ roles_path = ~/cnstechnicalgroup
 hostfile = inventory
 ```
 
-
 ## 8. Create the playbook
 
 ```bash
-vi dbserver.yml
+vi dbclient.yml
 ```
 
 ```yaml
@@ -73,29 +71,17 @@ vi dbserver.yml
 - hosts: db1
   sudo: yes
   roles: 
-    - sqlserver-server
+    - sqlserver-client
   gather_facts: yes
   environment:
-    SA_PASSWORD: "{{sa_password}}"
+    target_home: "{{target_home}}"
+    ACCEPT_EULA: "Y"
 ```
-
-## 9. Create a vars directory and add the main.yml file
+	
+## 9. Run playbook
 
 ```bash
-mkdir vars
-cd vars
-vi main.yml
-```
-
-```yaml
----
-sa_password: "a_Str0ng_Passw0rd1"
-```
-
-## 10. Run playbook
-
-```bash
-ansible-playbook dbserver.yml
+ansible-playbook dbclient.yml
 ```
 
 
