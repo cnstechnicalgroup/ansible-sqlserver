@@ -1,0 +1,4 @@
+IF ( select count(*) from sys.availability_replicas where replica_server_name = '{{ secondary_host }}' ) = 0
+BEGIN
+ ALTER AVAILABILITY GROUP [{{ availability_group }}] ADD REPLICA ON N'{{ secondary_host }}' WITH (ENDPOINT_URL = N'TCP://{{ secondary_host }}:5022', FAILOVER_MODE = MANUAL, AVAILABILITY_MODE = ASYNCHRONOUS_COMMIT, BACKUP_PRIORITY = 50, SEEDING_MODE = AUTOMATIC, SECONDARY_ROLE(ALLOW_CONNECTIONS = ALL));
+END

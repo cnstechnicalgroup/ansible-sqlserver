@@ -1,3 +1,5 @@
+## Updated June 28th 2017
+
 # Ansible Install of SQL Server for Linux Always-On with READ SCALING ONLY
 
 

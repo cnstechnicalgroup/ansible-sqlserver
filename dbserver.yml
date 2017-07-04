@@ -1,9 +1,9 @@
 ---
-- hosts: dbservers
+- hosts: db3
   sudo: yes
   roles: 
   - dbserver
-  gather_facts: no
+  gather_facts: yes
   environment:
    SA_PASSWORD: "{{sa_password}}"
 
