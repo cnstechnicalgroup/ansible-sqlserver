@@ -87,8 +87,7 @@ vi dbserver_ha.yml
 ## 9. Create a vars directory and add the main.yml file
 
 The primary_host is the primary instance in the Always-On Group.
-The secondary_host is the secondary instance in the Always-On Group that will server as the first read-only replica
-After this script is run, an Always-On Read-Only Group will be created. From here, you can add databases to the group. 
+The secondary_host is the secondary instance in the Always-On Group that will serve as the first read-only replica
 
 ```bash
 mkdir vars
