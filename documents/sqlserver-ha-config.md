@@ -1,5 +1,9 @@
 # Install the cnstechnicalgroup.sqlserver-ha-config role
 
+This install will add High Availability components to a Linux install of SQL Server. 
+The port tcp/5022 will be opened if SQL Server is running on CentOS. 
+This install will also install SQL Server if that hasn't already been done by its dependencies. 
+
 ## 1. Create a directory cnstechnicalgroup_install and cd into it
 
 ```bash
@@ -86,7 +90,6 @@ vi dbserver_ha.yml
 
 The primary_host name and ip represent the primary instance in the Always-On Group.
 The secondary_host name and ip represent the secondary instance in the Always-On Group that will server as the first read-only replica
-After this script is run, the Always-On components will be installed on both servers and the port tcp/5022 will be opened. 
 
 ```bash
 mkdir vars
@@ -97,8 +100,8 @@ vi main.yml
 ```yaml
 ---
 use_hosts_file: yes
-primary_host_ip: 192.168.33.10
-secondary_host_ip: 192.168.33.20
+primary_host_ip: primary_ip_address
+secondary_host_ip: secondary_ip_address
 primary_host_name: db1
 secondary_host_name: db2
 ```
