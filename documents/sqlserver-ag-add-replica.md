@@ -65,6 +65,7 @@ vi ansible.cfg
 [defaults]
 roles_path = ~/cnstechnicalgroup
 hostfile = inventory
+```
 
 ## 8. Create the playbook
 
