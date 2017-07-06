@@ -2,7 +2,7 @@
 - hosts: replicas
   sudo: yes
   roles: 
-  - testplay
+  - dbserver_ag_add_replica
   gather_facts: yes
   environment:
    SA_PASSWORD: "{{sa_password}}"
