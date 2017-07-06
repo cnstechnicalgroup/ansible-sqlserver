@@ -25,7 +25,7 @@ roles_path = ~/cnstechnicalgroup
 ```yaml
 ---
 - src: cnstechnicalgroup.sqlserver-client
-  name: sqlserver-client
+  name: cnstechnicalgroup.sqlserver-client
 ```
 
 
@@ -71,7 +71,7 @@ vi dbclient.yml
 - hosts: db1
   sudo: yes
   roles: 
-    - sqlserver-client
+    - cnstechnicalgroup.sqlserver-client
   gather_facts: yes
   environment:
     target_home: "{{target_home}}"

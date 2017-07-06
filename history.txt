@@ -1,0 +1,500 @@
+   37  cat files/sql/3_create_mirroring_endpoint.sql.j2 
+   38  vi testplay.yml 
+   39  vi inventory 
+   40  vi roles/testplay/vars/main.yml 
+   41  vi roles/testplay/tasks/main.yml 
+   42  ansible-playbook testplay.yml 
+   43  vi roles/testplay/tasks/main.yml 
+   44  ansible-playbook testplay.yml 
+   45  vi roles/testplay/tasks/main.yml 
+   46  vi testplay.yml 
+   47  vi inventory 
+   48  ansible-playbook testplay.yml 
+   49  vi roles/testplay/tasks/main.yml 
+   50  ssh db3
+   51  cat files/sql/2_REPLICA_ONLY_restore_master_key_on_replica.sql.j2 
+   52  ansible-playbook testplay.yml 
+   53  vi roles/testplay/tasks/main.yml 
+   54  cat files/sql/3_create_mirroring_endpoint.sql.j2 
+   55  cat files/sql/5_REPLICA_ONLY_join_replica_to_availability_group.sql.j2 
+   56  ssh db3
+   57  ssh db1
+   58  ssh db2
+   59  ssh db1
+   60  ssh db3
+   61  cat /etc/hosts
+   62  ssh db1
+   63  ssh db3
+   64  cd ansible-sqlserver/
+   65  ls
+   66  cd files/sql/
+   67  ls
+   68  cat 4_PRIMARY_ONLY_create_availability_group_primary.sql.j2 
+   69  cd ..
+   70  cd ..
+   71  cat roles/testplay/vars/main.yml 
+   72  cd ansible-sqlserver/
+   73  ls
+   74  vi inventory 
+   75  cd ansible-sqlserver/
+   76  vi inventory 
+   77  cat dbserver.yml 
+   78  ansible-playbook dbserver.yml 
+   79  ssh db1
+   80  ssh db2
+   81  cat /etc/hosts
+   82  ansible -m ping db1
+   83  ansible -m ping db2
+   84  ansible-playbook dbserver.yml 
+   85  vi dbserver_ha.yml 
+   86  cat inventory 
+   87  ansible-playbook dbserver_ha.yml 
+   88  vi dbserver_ag.yml 
+   89  ansible-playbook dbserver_ag.yml 
+   90  ssh db2
+   91  vi inventory 
+   92  cat roles/dbserver_ha/tasks/main.yml 
+   93  vi roles/dbserver_ha/vars/main.yml 
+   94  vi inventory 
+   95  vi roles/dbserver_ha/vars/main.yml 
+   96  vi dbserver_ha.
+   97  vi dbserver_ha.yml 
+   98  ansible-playbook dbserver_ha.yml 
+   99  vi roles/dbserver_ha/tasks/main.yml 
+  100  ssh db3
+  101  vi dbserver.yml 
+  102  ansible-playbook dbserver.yml 
+  103  ansible-playbook dbserver_ha.yml 
+  104  vi roles/dbserver_ha/tasks/main.yml 
+  105  telnet db3 5022
+  106  telnet 192.168.33.40 5022
+  107  telnet 192.168.33.40 1433
+  108  vi roles/dbserver_ha/tasks/main.yml 
+  109  vi roles/dbserver_ha/vars/main.yml 
+  110  vi roles/dbserver_ha/tasks/main.yml 
+  111  ansible-playbook dbserver_ha.yml 
+  112  ssh db3
+  113  ansible-playbook dbserver_ha.yml 
+  114  telnet 192.168.33.40 1433
+  115  telnet 192.168.33.40 5022
+  116  cat roles/testplay/vars/main.yml 
+  117  ssh db1
+  118  ssh db2
+  119  ssh db3
+  120  cat roles/testplay/tasks/main.yml 
+  121  vi roles/testplay/tasks/main.yml 
+  122  vi inventory 
+  123  vi testplay.yml 
+  124  ansible-playbook testplay.yml 
+  125  cat roles/dbserver_ag/tasks/main.yml 
+  126  vi roles/testplay/tasks/main.yml 
+  127  vi roles/testplay/tasks/main.yml 
+  128  ansible-playbook testplay.yml 
+  129  ssh db3
+  130  ansible-playbook testplay.yml -vvvv
+  131  vi roles/testplay/tasks/main.yml 
+  132  ansible-playbook testplay.yml -vvvv
+  133  ssh db3
+  134  vi roles/testplay/tasks/main.yml 
+  135  ls files/sql/2_REPLICA_ONLY_restore_master_key_on_replica.sql.j2 
+  136  sqlcmd -S db3 -U SA -P a_Str0ng_Passw0rd1
+  137  sqlcmd -S db3 -U SA -P a_Str0ng_Passw0rd1 -Q files/sql/2_REPLICA_ONLY_restore_master_key_on_replica.sql.j2 
+  138  cat files/sql/2_REPLICA_ONLY_restore_master_key_on_replica.sql.j2 
+  139  vi /tmp/test.sql
+  140  sqlcmd -S db3 -U SA -P a_Str0ng_Passw0rd1 -Q /tmp/test.sql 
+  141  vi /tmp/test.sql
+  142  sqlcmd -S db3 -U SA -P a_Str0ng_Passw0rd1 -Q /tmp/test.sql 
+  143  vi /tmp/test.sql
+  144  sqlcmd -S db3 -U SA -P a_Str0ng_Passw0rd1 -Q /tmp/test.sql 
+  145  vi /tmp/test.sql
+  146  cat roles/testplay/tasks/main.yml 
+  147  vi roles/testplay/tasks/main.yml 
+  148  ansible-playbook testplay.yml 
+  149  vi roles/testplay/tasks/main.yml 
+  150  cat roles/dbserver_ag/tasks/main.yml 
+  151  vi roles/testplay/tasks/main.yml 
+  152  cat roles/dbserver_ag/tasks/main.yml 
+  153  vi roles/testplay/tasks/main.yml 
+  154  ansible-playbook testplay.yml 
+  155  git add .
+  156  git commit -am'a play for adding a RO replica to the AG'
+  157  git push origin master
+  158  git push origin cdev
+  159  git pull .
+  160  git pull 
+  161  git push origin cdev
+  162  git pull cdev
+  163  cd ansible-sqlserver/
+  164  git push origin cdev
+  165  git pull origin cdev
+  166  git push origin cdev
+  167  cd roles/testplay/tasks/
+  168  ls
+  169  cat mai
+  170  cat main.yml 
+  171  cd ansible-sqlserver/
+  172  ls
+  173  cat inventory 
+  174  vi inventory 
+  175  vi dbserver.yml 
+  176  cat dbserver.yml 
+  177  cat inventory 
+  178  ansible -m ping dbservers
+  179  ssh db1
+  180  ssh db2
+  181  ssh db3
+  182  ansible-playbook dbserver.yml 
+  183  vi roles/dbserver_ha/vars/main.yml 
+  184  vi dbserver_ha.yml 
+  185  ansible-playbook dbserver_ha.yml 
+  186  cat roles/dbserver_ha/vars/main.yml 
+  187  tree
+  188  history
+  189  mkdir roles/dbserver_ag/templates
+  190  tree
+  191  git mv files/sql/* roles/dbserver_ag/templates/
+  192  cd roles/dbserver_ag/templates/
+  193  ls
+  194  ls -alh
+  195  cd ..
+  196  cd ..
+  197  cd ..
+  198  vi roles/dbserver_ag/tasks/main.yml 
+  199  ansible-playbook dbserver_ag.yml --check
+  200  vi roles/dbserver_ag/tasks/main.yml 
+  201  vi roles/dbserver_ag/tasks/main.yml 
+  202  vi dbserver_ag.yml 
+  203  ansible-playbook dbserver_ag.yml 
+  204  git add .
+  205  git commit -am'moved j2 sql files to role'
+  206  git push origin cdev
+  207  ls
+  208  mkdir roles/testplay/templates
+  209  cp roles/dbserver_ag/templates/* roles/testplay/templates/
+  210  cd roles/testplay/templates/
+  211  ls
+  212  cd ..
+  213  cd templates/
+  214  ls -alh
+  215  rm 2_PRIMARY_ONLY_create_master_key_on_primary.sql.j2 
+  216  mv 4_PRIMARY_ONLY_create_availability_group_primary.sql.j2 4_Add_replica_to_availability_group.sql.j2
+  217  ls -alh
+  218  mv 4_Add_replica_to_availability_group.sql.j2 4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  219  ls -alh
+  220  mv 3_create_mirroring_endpoint.sql.j2 3_PRIMARY_ONLY_create_mirroring_endpoint.sql.j2 
+  221  ls -alh
+  222  mv 3_PRIMARY_ONLY_create_mirroring_endpoint.sql.j2 3_REPLICA_ONLY_create_mirroring_endpoint.sql.j2 
+  223  ls -alh
+  224  cd ..
+  225  cd ..
+  226  cd ..
+  227  vi inventory 
+  228  vi dbserver.yml 
+  229  ansible-playbook dbserver.yml 
+  230  vi dbserver_ha.yml 
+  231  ansible-playbook dbserverÃ_ha.yml 
+  232  ls
+  233  ansible-playbook dbserver_ha.yml 
+  234  ssh db1
+  235  vi roles/dbserver_ha/vars/main.yml 
+  236  vi roles/dbserver_ha/vars/main.yml 
+  237  ansible-playbook dbserver_ha.yml 
+  238  ssh db1
+  239  ssh db3
+  240  vi roles/testplay/tasks/main.yml 
+  241  vi roles/testplay/vars/main.yml 
+  242  vi roles/testplay/tasks/main.yml 
+  243  ls
+  244  cd ansible-sqlserver/
+  245  cat roles/testplay/tasks/main.yml 
+  246  cat roles/testplay/vars/main.yml 
+  247  cat roles/testplay/tasks/main.yml 
+  248  ansible-playbook testplay.yml 
+  249  telnet db3 5022
+  250  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  251  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  252  vi roles/testplay/templates/5_REPLICA_ONLY_join_replica_to_availability_group.sql.j2 
+  253  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  254  vi roles/testplay/templates/5_REPLICA_ONLY_join_replica_to_availability_group.sql.j2 
+  255  vi roles/testplay/tasks/main.yml 
+  256  ansible-playbook testplay.yml 
+  257  vi roles/testplay/tasks/main.yml 
+  258  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  259  vi roles/testplay/tasks/main.yml 
+  260  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  261  vi roles/testplay/vars/main.yml 
+  262  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  263  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  264  ansible-playbook testplay.yml 
+  265  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  266  vi roles/testplay/templates/5_REPLICA_ONLY_join_replica_to_availability_group.sql.j2 
+  267  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  268  ansible-playbook testplay.yml 
+  269  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  270  ansible-playbook testplay.yml 
+  271  vi roles/testplay/tasks/main.yml 
+  272  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  273  ansible-playbook testplay.yml 
+  274  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  275  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  276  ansible-playbook testplay.yml -vvvv
+  277  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  278  ansible-playbook testplay.yml -vvvv
+  279  git add .
+  280  git commit -am'testplay now adds replicas to existing ag'
+  281  git push origin cdev
+  282  vi roles/testplay/templates/4_PRIAMRY_ONLY_Add_replica_to_availability_group.sql.j2 
+  283  ansible-playbook testplay.yml 
+  284  ansible-playbook testplay.yml -vvvv
+  285  git add .
+  286  git commit -am'added in condition to check for new replica existence in ag'
+  287  git push origin cdev
+  288  ls -alh
+  289  vi .gitignore 
+  290  cp -Rp roles/testplay roles/dbserver_ag_add_replica
+  291  cp testplay.yml dbserver_ag_add_replica.yml
+  292  ls -alh
+  293  tree
+  294  vi dbserver_ag_add_replica.yml 
+  295  ls
+  296  ansible-playbook dbserver_ag_add_replica.yml 
+  297  git add .
+  298  git commit -am'added in new role to add replicas'
+  299  git push origin cdev
+  300  cd ..
+  301  cd role-sqlserver-server/
+  302  vi README.md 
+  303  git add .
+  304  git commit -am'gather facts is necessary'
+  305  git push origin master
+  306  cd ..
+  307  cd role-sqlserver-ha-config/
+  308  vi README.md 
+  309  cd ..
+  310  cd role-sqlserver-client/
+  311  vi README.md 
+  312  git add .
+  313  git commit -am'gather facts is necessary'
+  314  git push origin master
+  315  :q
+  316  cd ..
+  317  cd ansible-sqlserver/
+  318  vi dbserver_ag.yml 
+  319  cd ansible-sqlserver/
+  320  ls
+  321  vi dbserver.yml 
+  322  vi inventory 
+  323  ansible-playbook dbserver.yml 
+  324  vi dbserver_ha.yml 
+  325  vi dbserver_ha.yml 
+  326  ansible-playbook dbserver_ha.yml 
+  327  vi dbserver_ag.yml 
+  328  ansible-playbook dbserver_ag.yml 
+  329  vi roles/dbserver_ha/tasks/main.yml 
+  330  vi roles/dbserver_ha/vars/main.yml 
+  331  ansible-playbook dbserver_ha.yml 
+  332  vi roles/dbserver_ag/vars/main.yml 
+  333  ansible-playbook dbserver_ag.yml 
+  334  cat roles/dbserver_ha/tasks/main.yml 
+  335  vi roles/dbserver_ag_add_replica/tasks/main.yml 
+  336  cp -Rp roles/testplay/vars roles/dbserver_ag_add_replica/
+  337  cd roles/dbserver_ag_add_replica/
+  338  ls
+  339  cd vars/
+  340  ls
+  341  vi main.yml 
+  342  cd ..
+  343  tree
+  344  cd ..
+  345  cd ..
+  346  ls
+  347  git rm *.retry
+  348  ls -alh
+  349  vi dbserver.yml 
+  350  cat dbserver.yml 
+  351  ansible-playbook dbserver.yml 
+  352  vi dbserver_ha.yml 
+  353  vi roles/dbserver_ha/vars/main.yml 
+  354  vi roles/dbserver_ha/vars/main.yml 
+  355  ansible-playbook dbserver_ha.yml 
+  356  vi roles/dbserver_ag_add_replica/vars/main.yml 
+  357  vi dbserver_ag_add_replica.yml 
+  358  ls
+  359  vi inventory 
+  360  ssh db3
+  361  ssh db1
+  362  ansible-playbook dbserver_ag_add_replica.yml 
+  363  cd role-sqlserver-server/
+  364  git pull
+  365  vi README.md 
+  366  ls -alh
+  367  cat README.md 
+  368  cd ..
+  369  ls
+  370  mkdir cnstechnicalgroup_roles
+  371  cd cnstechnicalgroup_roles/
+  372  vi requirements.yml
+  373  ansible-galaxy install -r requirements.yml 
+  374  vi ansible.cfg
+  375  ansible-galaxy install -r requirements.yml 
+  376  vi ansible.cfg
+  377  cd ..
+  378  mkdir cnstechnicalgroup
+  379  cd cnstechnicalgroup_roles/
+  380  ansible-galaxy install -r requirements.yml 
+  381  vi ansible.cfg
+  382  cd /home/vagrant/ansible-sqlserver/
+  383  ls
+  384  cat ansible.cfg 
+  385  cd /home/vagrant/cnstechnicalgroup_roles/
+  386  ls
+  387  vi ansible.cfg 
+  388  ansible-galaxy install -r requirements.yml 
+  389  cd ..
+  390  cd cnstechnicalgroup
+  391  ls
+  392  cd ..
+  393  cd cnstechnicalgroup_roles/
+  394  ls
+  395  cat ansible.cfg 
+  396  rm -Rf /home/vagrant/cnstechnicalgroup
+  397  ls
+  398  cd ..
+  399  mv cnstechnicalgroup_roles cnstechnicalgroup_install
+  400  cd cnstechnicalgroup_install/
+  401  ls
+  402  cat ansible.cfg 
+  403  cat requirements.yml 
+  404  cd ..
+  405  ls -alh
+  406  cd cnstechnicalgroup_install/
+  407  ls -alh
+  408  cd ..
+  409  ls
+  410  cd cnstechnicalgroup_install/
+  411  ansible-galaxy install -r requirements.yml 
+  412  cd ..
+  413  ls
+  414  cd cnstechnicalgroup
+  415  ls
+  416  ls -alh
+  417  cd sqlserver-server/
+  418  ls
+  419  cat meta/main.yml 
+  420  ls
+  421  mkdir vars
+  422  cat /home/vagrant/ansible-sqlserver/roles/dbserver/vars/main.yml 
+  423  cat /home/vagrant/ansible-sqlserver/inventory 
+  424  cp /home/vagrant/ansible-sqlserver/inventory ./
+  425  cat /home/vagrant/ansible-sqlserver/dbserver.yml 
+  426  cp /home/vagrant/ansible-sqlserver/dbserver.yml ./
+  427  ls -alh
+  428  cat dbserver.yml 
+  429  cp /home/vagrant/ansible-sqlserver/roles/dbserver/vars/main.yml ./vars/
+  430  tree
+  431  cat dbserver.yml 
+  432  vi dbserver.yml 
+  433  vi dbserver.yml 
+  434  vi dbserver.yml 
+  435  killall vi
+  436  vi dbserver.yml 
+  437  cat inventory 
+  438  vi inventory 
+  439  vi dbserver.yml 
+  440  killall vi
+  441  killall vi
+  442  killall vi
+  443  killall vi
+  444  ps aux
+  445  sudo su -
+  446  vi dbserver.yml 
+  447  vi dbserver.yml 
+  448  vi dbserver.yml 
+  449  sudo su -
+  450  cd cnstechnicalgroup
+  451  ls
+  452  cd sqlserver-server/
+  453  ls
+  454  vi dbserver.yml 
+  455  vi dbserver.yml 
+  456  vi inventory 
+  457  ansible-playbook dbserver.yml 
+  458  ls
+  459  ls -alh
+  460  cp /home/vagrant/cnstechnicalgroup_install/ansible.cfg ./
+  461  ls -alh
+  462  vi ansible.cfg 
+  463  ansible-galaxy list
+  464  ansible-playbook dbserver.yml 
+  465  cat inventory 
+  466  vi dbserver.yml 
+  467  ansible -m ping db1
+  468  ls -alh
+  469  vi inventory 
+  470  ansible -i inventory -m ping db1
+  471  ansible-playbook -i inventory dbserver.yml 
+  472  ansible-playbook -i inventory dbserver.yml 
+  473  cd ..
+  474  cd ..
+  475  cd cnstechnicalgroup_install/
+  476  ls
+  477  vi requirements.yml 
+  478  cat requirements.yml 
+  479  ansible-galaxy install -r requirements.yml
+  480  cd ..
+  481  cd cnstechnicalgroup/sqlserver-client/
+  482  vi inventory
+  483  cat ../sqlserver-server/inventory 
+  484  cat ../sqlserver-server/dbserver.yml 
+  485  cat /home/vagrant/ansible-sqlserver/inventory 
+  486  cat /home/vagrant/ansible-sqlserver/ansible.cfg 
+  487  ls
+  488  cat vars/main.yml 
+  489  tree
+  490  ls -alh
+  491  vi ansible.cfg
+  492  ansible-galaxy list
+  493  vi dbclient.yml
+  494  ansible-playbook dbclient.yml
+  495  vi inventory 
+  496  ansible-playbook dbclient.yml
+  497  vi dbclient.yml 
+  498  ansible-playbook dbclient.yml
+  499  ssh db1
+  500  ansible-playbook dbclient.yml
+  501  cd ansible-sqlserver/
+  502  git pull
+  503  git pull .
+  504  history | grep branch
+  505  history | grep git
+  506  git pull cdev
+  507  git status
+  508  git log
+  509  cd roles/dbserver
+  510  ls
+  511  mkdir files
+  512  cd files/
+  513  cd ..
+  514  rmdir files
+  515  cd ..
+  516  cd ..
+  517  mkdir documents
+  518  cd documents/
+  519  vi sqlserver_role_install.md
+  520  git add .
+  521  git commit -am'add readme for sqlserver_role_install'
+  522  git push origin cdev
+  523  ls
+  524  vi sqlserver_client_install.md
+  525  vi sqlserver_role_install.md
+  526  vi sqlserver_client_install.md
+  527  vi sqlserver_role_install.md
+  528  vi sqlserver_client_install.md
+  529  git add .
+  530  git commit -am'add readme for sqlserver_client_role_install'
+  531  git push origin cdev
+  532  cd ..
+  533  git checkout master
+  534  git merge --no-ff origin/cdev
+  535  git push origin master
+  536  history > history.txt

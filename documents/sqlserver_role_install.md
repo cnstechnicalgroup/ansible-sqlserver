@@ -25,7 +25,7 @@ roles_path = ~/cnstechnicalgroup
 ```yaml
 ---
 - src: cnstechnicalgroup.sqlserver-server
-  name: sqlserver-server
+  name: cnstechnicalgroup.sqlserver-server
 ```
 
 
@@ -73,7 +73,7 @@ vi dbserver.yml
 - hosts: db1
   sudo: yes
   roles: 
-    - sqlserver-server
+    - cnstechnicalgroup.sqlserver-server
   gather_facts: yes
   environment:
     SA_PASSWORD: "{{sa_password}}"

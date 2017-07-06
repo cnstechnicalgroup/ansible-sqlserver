@@ -27,7 +27,7 @@ roles_path = ~/cnstechnicalgroup
 ```yaml
 ---
 - src: cnstechnicalgroup.sqlserver-ag-config
-  name: sqlserver-ag-config
+  name: cnstechnicalgroup.sqlserver-ag-config
 ```
 
 
@@ -80,7 +80,7 @@ vi dbserver_ha.yml
 - hosts: replicas
   sudo: no
   roles: 
-    - sqlserver-ag-config
+    - cnstechnicalgroup.sqlserver-ag-config
   gather_facts: yes
 ```
 
