@@ -19,13 +19,13 @@
   file: 
    path: /var/opt/mssql/data/dbm_certificate.cer 
    state: absent 
-  when: primary_host != inventory_hostname
+  when: primary_host_name != inventory_hostname
 
 - name: remove private key if it exists
   file: 
    path: /var/opt/mssql/data/dbm_certificate.pvk 
    state: absent 
-  when: primary_host != inventory_hostname
+  when: primary_host_name != inventory_hostname
 
 - name: fetch certs from primary
   sudo: yes
@@ -33,7 +33,7 @@
    src: /var/opt/mssql/data/dbm_certificate.cer
    dest: /tmp/db1_dbm_certificate.cer
    flat: yes
-  when: primary_host == inventory_hostname
+  when: primary_host_name == inventory_hostname
 
 - name: copy certs to replicas
   sudo: yes
@@ -49,7 +49,7 @@
    src: /var/opt/mssql/data/dbm_certificate.pvk
    dest: /tmp/db1_dbm_certificate.pvk
    flat: yes
-  when: primary_host == inventory_hostname
+  when: primary_host_name == inventory_hostname
 
 - name: copy private key to replicas
   sudo: yes
@@ -58,29 +58,29 @@
    dest: /var/opt/mssql/data/dbm_certificate.pvk
    owner: mssql
    group: mssql
-  when: primary_host != inventory_hostname
+  when: primary_host_name != inventory_hostname
 
 - name: restore certificates and pvk
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript2 | regex_replace('\n|\t', ' ') }}\" "
   delegate_to: localhost
   sudo: no
-  when: primary_host != inventory_hostname
+  when: primary_host_name != inventory_hostname
 
 - name: create mirroring endpoints
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript3 | regex_replace('\n|\t', ' ') }}\" "
   sudo: no
   delegate_to: localhost
-  when: primary_host != inventory_hostname
+  when: primary_host_name != inventory_hostname
 
 - name: Add {{ secondary_host }} to availability group {{ availability_group }}
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript4 | regex_replace('\n|\t', ' ') }}\" "
   sudo: no
   delegate_to: localhost
-  when: primary_host == inventory_hostname
+  when: primary_host_name == inventory_hostname
 
 - name: Join {{ secondary_host }} to availability group {{ availability_group }}
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript5 | regex_replace('\n|\t', ' ') }}\" "
   sudo: no
   delegate_to: localhost
-  when: primary_host != inventory_hostname
+  when: primary_host_name != inventory_hostname
 
