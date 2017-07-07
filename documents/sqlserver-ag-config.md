@@ -82,6 +82,10 @@ vi dbserver_ha.yml
   roles: 
     - cnstechnicalgroup.sqlserver-ag-config
   gather_facts: yes
+  environment:
+   SA_PASSWORD: "{{sa_password}}"
+   ACCEPT_EULA: "Y"
+
 ```
 
 ## 9. Create a vars directory and add the main.yml file
@@ -98,8 +102,8 @@ vi main.yml
 ```yaml
 ---
 availability_group: "ag1"
-primary_host: "db1"
-secondary_host: "db2"
+primary_host_name: "db1"
+secondary_host_name: "db2"
 ```
 
 

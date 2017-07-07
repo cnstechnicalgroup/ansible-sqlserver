@@ -27,7 +27,7 @@
 - name: create certificate, pvk and back them up
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript2 | regex_replace('\n|\t', ' ') }}\" "
   delegate_to: localhost
-  when: primary_host == inventory_hostname
+  when: primary_host_name == inventory_hostname
 
 - name: fetch certs from primary
   sudo: yes
@@ -35,7 +35,7 @@
    src: /var/opt/mssql/data/dbm_certificate.cer
    dest: /tmp/db1_dbm_certificate.cer
    flat: yes
-  when: primary_host == inventory_hostname
+  when: primary_host_name == inventory_hostname
 
 - name: copy certs to replicas
   sudo: yes
@@ -44,7 +44,7 @@
    dest: /var/opt/mssql/data/dbm_certificate.cer
    owner: mssql
    group: mssql
-  when: primary_host != inventory_hostname
+  when: primary_host_name != inventory_hostname
 
 - name: fetch private key from primary
   sudo: yes
@@ -52,7 +52,7 @@
    src: /var/opt/mssql/data/dbm_certificate.pvk
    dest: /tmp/db1_dbm_certificate.pvk
    flat: yes
-  when: primary_host == inventory_hostname
+  when: primary_host_name == inventory_hostname
 
 - name: copy private key to replicas
   sudo: yes
@@ -61,12 +61,12 @@
    dest: /var/opt/mssql/data/dbm_certificate.pvk
    owner: mssql
    group: mssql
-  when: primary_host != inventory_hostname
+  when: primary_host_name != inventory_hostname
 
 - name: restore certificates and pvk
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript3 | regex_replace('\n|\t', ' ') }}\" "
   delegate_to: localhost
-  when: primary_host != inventory_hostname
+  when: primary_host_name != inventory_hostname
 
 - name: create mirroring endpoints
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript4 | regex_replace('\n|\t', ' ') }}\" "
@@ -75,10 +75,10 @@
 - name: create ag on primary
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript5 | regex_replace('\n|\t', ' ') }}\" "
   delegate_to: localhost
-  when: primary_host == inventory_hostname
+  when: primary_host_name == inventory_hostname
 
 - name: create ag on secondary
   command: "sqlcmd -S {{ inventory_hostname }} -U SA -P {{sa_password}} -Q \"{{ sqlscript6 | regex_replace('\n|\t', ' ') }}\" "
   delegate_to: localhost
-  when: primary_host != inventory_hostname
+  when: primary_host_name != inventory_hostname
 
