@@ -102,7 +102,7 @@ vi main.yml
 ---
 sa_password: "a_Str0ng_Passw0rd1"
 availability_group: "ag1"
-primary_host√_name: "db1"
+primary_host_name: "db1"
 secondary_host_name: "db3"
 ```
 
