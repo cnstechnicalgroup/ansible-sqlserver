@@ -82,6 +82,7 @@ vi dbserver_ag_add_replica.yml
   gather_facts: yes
   environment:
    SA_PASSWORD: "{{sa_password}}"
+   ACCEPT_EULA: "Y"
 
 ```
 
@@ -101,8 +102,8 @@ vi main.yml
 ---
 sa_password: "a_Str0ng_Passw0rd1"
 availability_group: "ag1"
-primary_host: "db1"
-secondary_host: "db3"
+primary_host√_name: "db1"
+secondary_host_name: "db3"
 ```
 
 
