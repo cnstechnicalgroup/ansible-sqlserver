@@ -77,6 +77,7 @@ vi dbserver.yml
   gather_facts: yes
   environment:
     SA_PASSWORD: "{{sa_password}}"
+    MSSQL_PID: "evaluation"
 ```
 
 ## 9. Create a vars directory and add the main.yml file
