@@ -83,6 +83,7 @@ vi dbserver_ag_add_replica.yml
   environment:
    SA_PASSWORD: "{{sa_password}}"
    ACCEPT_EULA: "Y"
+   MSSQL_PID: "evaluation"
 
 ```
 
